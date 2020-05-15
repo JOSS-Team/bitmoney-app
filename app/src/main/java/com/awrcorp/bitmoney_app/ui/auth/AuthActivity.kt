@@ -1,13 +1,13 @@
-package com.awrcorp.bitmoney_app.view
+package com.awrcorp.bitmoney_app.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.awrcorp.bitmoney_app.R
 
-class LoginActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_auth)
     }
 }

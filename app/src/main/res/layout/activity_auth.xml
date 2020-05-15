@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginActivity">
+    tools:context=".ui.auth.AuthActivity">
+
 
     <fragment
         android:id="@+id/login_container"
@@ -18,3 +19,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/login_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+
