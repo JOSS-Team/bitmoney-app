@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.awrcorp.bitmoney_app.view.HomeFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/planningFragment"
-        android:name="com.awrcorp.bitmoney_app.view.PlanningFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.main.planning.PlanningFragment"
         android:label="fragment_planning"
         tools:layout="@layout/fragment_planning" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.awrcorp.bitmoney_app.view.ProfileFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.main.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/walletFragment"
-        android:name="com.awrcorp.bitmoney_app.view.WalletFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.main.wallet.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
 </navigation>

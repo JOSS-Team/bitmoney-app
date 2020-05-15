@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.awrcorp.bitmoney_app.view.LoginFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.awrcorp.bitmoney_app.view.RegisterFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.auth.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <activity
         android:id="@+id/homeActivity"
-        android:name="com.awrcorp.bitmoney_app.view.HomeActivity"
+        android:name="com.awrcorp.bitmoney_app.ui.main.MainActivity"
         android:label="activity_home"
-        tools:layout="@layout/activity_home" />
+        tools:layout="@layout/activity_main" />
 </navigation>

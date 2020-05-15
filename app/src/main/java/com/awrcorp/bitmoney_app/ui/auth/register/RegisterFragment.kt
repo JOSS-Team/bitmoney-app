@@ -1,20 +1,31 @@
-package com.awrcorp.bitmoney_app.view
+package com.awrcorp.bitmoney_app.ui.auth.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
+import com.awrcorp.bitmoney_app.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment(), View.OnClickListener{
 
+    private lateinit var binding : FragmentRegisterBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+
+        // Inflate view and obtain an instance of the binding class
+        binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_register,
+                container,
+                false
+        )
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,20 +48,20 @@ class RegisterFragment : Fragment(), View.OnClickListener{
 
     private fun checkInput() {
         var ready = true
-        val username = et_username_register.text.toString()
-        val email = et_email_register.text.toString()
-        val password = et_password_register.text.toString()
+        val username = binding.etUsernameRegister.text.toString()
+        val email = binding.etEmailRegister.text.toString()
+        val password = binding.etPasswordRegister.text.toString()
 
         if (username.isEmpty()) {
-            et_username_register.error = "Username belum diisi"
+            binding.etUsernameRegister.error = "Username belum diisi"
             ready = false
         }
         if (email.isEmpty()) {
-            et_email_register.error = "Email belum diisi"
+            binding.etEmailRegister.error = "Email belum diisi"
             ready = false
         }
         if (password.isEmpty()) {
-            et_password_register.error = "Password belum diisi"
+            binding.etPasswordRegister.error = "Password belum diisi"
             ready = false
         }
         if (ready) {
