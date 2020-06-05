@@ -8,23 +8,61 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.profile.ProfileFragment">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile"
-                android:layout_width="76dp"
-                android:layout_height="76dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="163dp"
-                android:layout_marginTop="112dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_large"
+                android:id="@+id/icon_kategori"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:src="@drawable/ic_person_black_24dp"
-                app:civ_border_color="#FF000000"
+                app:civ_border_color="@color/colorPrimaryDark"
                 app:civ_border_width="2dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="galuhnr"
+                android:gravity="center"
+                android:textColor="@color/colorButton2"
+                android:textStyle="bold"
+                android:textSize="24sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_small"
+                android:text="galuhnurul99@gmail.com"
+                android:gravity="center"
+                android:textColor="@color/colorButton1"
+                android:textSize="14sp"/>
 
-        </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="123dp"
+                android:src="@drawable/vector" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_large"
+                    android:drawablePadding="@dimen/padding_small"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:text="My Profile"
+                    android:textColor="@color/colorButton1"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
