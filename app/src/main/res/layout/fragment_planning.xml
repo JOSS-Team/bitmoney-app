@@ -70,6 +70,7 @@
 
             </LinearLayout>
         </ScrollView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_tambah"
             android:layout_width="wrap_content"

@@ -47,23 +47,97 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="@dimen/margin_large">
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/margin_large"
-                    android:drawablePadding="@dimen/padding_small"
-                    android:drawableLeft="@drawable/ic_email_black_24dp"
-                    android:text="My Profile"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_account_balance_wallet"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="@dimen/margin_large"
+                    android:text="Status Expense"
                     android:textColor="@color/colorButton1"
                     android:textSize="14sp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_live_help_40"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="@dimen/margin_large"
+                    android:text="Pusat Bantuan"
+                    android:textColor="@color/colorButton1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_settings_40"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="@dimen/margin_large"
+                    android:text="Settings"
+                    android:textColor="@color/colorButton1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp">
+                <Button
+                    android:id="@+id/btn_logout"
+                    android:layout_width="184dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_rounded_red"
+                    android:padding="@dimen/padding_small"
+                    android:text="LOGOUT"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
