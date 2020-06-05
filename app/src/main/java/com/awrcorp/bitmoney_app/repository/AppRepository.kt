@@ -28,21 +28,23 @@ class AppRepository private constructor(private val context: Context) {
     }
 
     fun login(email: String, password: String): LiveData<Int> {
-        val userId = MutableLiveData<Int>()
+        val responseCode = MutableLiveData<Int>()
         api.login(email, password).enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-//                userId.value = 3
                 val success = response.body()?.status
-                if (success != null && success) {
-                    userId.value = response.body()?.userId
+                if (success != null && success == 1) {
+                    responseCode.value = response.body()?.userId
+                } else {
+                    //account not found
+                    responseCode.value = 404
                 }
             }
-
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                userId.value = 101
+                //network unavailable or request timeout
+                responseCode.value = 408
             }
         })
-        return userId
+        return responseCode
     }
 
     fun register(name: String, email: String, password: String) {

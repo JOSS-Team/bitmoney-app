@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProvider(this, LoginViewModelFactory.getInstance(requireContext()))[LoginViewModel::class.java]
 
         binding.btnLogin.setOnClickListener{
-            checkInput()
+            login()
         }
 
         binding.tvCreateAccount.setOnClickListener{
@@ -44,28 +44,37 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun checkInput() {
+    private fun login() {
         val email = binding.etEmailLogin.text.toString()
         val password = binding.etPasswordLogin.text.toString()
 
-        if (email.isEmpty()) {
-            binding.etEmailLogin.error = "Email belum diisi"
-            return
-        }
-        if (password.isEmpty()) {
-            binding.etPasswordLogin.error = "Password belum diisi"
-            return
-        }
+        if(isInvalid(email, password)) return
 
-        viewModel.login(email, password).observe(this.viewLifecycleOwner, Observer { userId ->
-            if (userId != null) {
-                if(userId == 101){
-                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show()
-                } else {
-                    view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeActivity)
-//                    this.activity?.finish()
+        viewModel.login(email, password).observe(this.viewLifecycleOwner, Observer { responseCode ->
+            if (responseCode != null) {
+                when (responseCode) {
+                    404 -> Toast.makeText(getActivity(), "account not found", Toast.LENGTH_SHORT).show()
+                    408 -> Toast.makeText(getActivity(), "check your connection and try again", Toast.LENGTH_SHORT).show()
+                    else -> {
+                        Toast.makeText(getActivity(), "userId $responseCode", Toast.LENGTH_SHORT).show()
+                        view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeActivity)
+                        this.activity?.finish()
+                    }
                 }
             }
         })
+    }
+
+    private fun isInvalid(email : String, password : String) : Boolean{
+        var ready = false
+        if (email.isEmpty()) {
+            binding.etEmailLogin.error = "Email belum diisi"
+            ready = true
+        }
+        if (password.isEmpty()) {
+            binding.etPasswordLogin.error = "Password belum diisi"
+            ready = true
+        }
+        return ready
     }
 }
