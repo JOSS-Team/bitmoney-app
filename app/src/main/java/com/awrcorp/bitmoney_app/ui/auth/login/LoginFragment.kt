@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentLoginBinding
+import com.awrcorp.bitmoney_app.vo.Anicantik
 
 class LoginFragment : Fragment() {
 
@@ -56,7 +57,8 @@ class LoginFragment : Fragment() {
                     404 -> Toast.makeText(getActivity(), "account not found", Toast.LENGTH_SHORT).show()
                     408 -> Toast.makeText(getActivity(), "check your connection and try again", Toast.LENGTH_SHORT).show()
                     else -> {
-                        Toast.makeText(getActivity(), "userId $responseCode", Toast.LENGTH_SHORT).show()
+                        Anicantik.loggedUserId = responseCode
+                        Toast.makeText(getActivity(), "userId ${Anicantik.loggedUserId}", Toast.LENGTH_SHORT).show()
                         view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeActivity)
                         this.activity?.finish()
                     }
@@ -66,15 +68,19 @@ class LoginFragment : Fragment() {
     }
 
     private fun isInvalid(email : String, password : String) : Boolean{
-        var ready = false
+        var invalid = false
         if (email.isEmpty()) {
             binding.etEmailLogin.error = "Email belum diisi"
-            ready = true
+            invalid = true
         }
         if (password.isEmpty()) {
             binding.etPasswordLogin.error = "Password belum diisi"
-            ready = true
+            invalid = true
         }
-        return ready
+        return invalid
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
