@@ -1,5 +1,6 @@
 package com.awrcorp.bitmoney_app.network
 
+import com.awrcorp.bitmoney_app.vo.User
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,5 +16,5 @@ interface ApiService {
     @POST("user/")
     fun register(@Field("name") name: String,
                  @Field("email") email: String,
-                 @Field("password") password: String)
+                 @Field("password") password: String) : Call<User>
 }
