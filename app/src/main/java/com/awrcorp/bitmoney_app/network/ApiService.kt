@@ -40,7 +40,7 @@ interface ApiService {
     @DELETE("income/{incomeId}")
     fun deleteIncome(@Path("incomeId") incomeId : Int) : Call<Unit>
 
-    @GET("income/{userId}")
+    @GET("incomes/{userId}")
     fun getIncomes(@Path("userId") userId : Int) : Call<List<Income>>
 
     @FormUrlEncoded
@@ -55,6 +55,6 @@ interface ApiService {
     @DELETE("outcome/{outcomeId}")
     fun deleteOutcome(@Path("ioutomeId") outcomeId : Int) : Call<Unit>
 
-    @GET("outcome/{userId}")
+    @GET("outcomes/{userId}")
     fun getOutcomes(@Path("userId") userId : Int) : Call<List<Outcome>>
 }

@@ -105,14 +105,14 @@ class AppRepository private constructor(private val context: Context) {
 
     fun getPlans(userId: Int) : LiveData<List<Outcome>> {
         val plans = MutableLiveData<List<Outcome>>()
-        val planList: List<Outcome> = emptyList()
+        var planList: MutableList<Outcome> = mutableListOf()
         api.getOutcomes(userId).enqueue(object : Callback<List<Outcome>> {
             override fun onResponse(call: Call<List<Outcome>>, response: Response<List<Outcome>>) {
                 val planResponse = response.body()
                 if (planResponse != null){
                     planResponse.forEach {
                         if (it.isPlan){
-                            planList.toMutableList().add(it)
+                            planList.add(it)
                         }
                     }
                     plans.value = planList

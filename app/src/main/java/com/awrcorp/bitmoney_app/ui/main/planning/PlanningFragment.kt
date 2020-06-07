@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentPlanningBinding
 import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.vo.Outcome
 
 /**
  * A simple [Fragment] subclass.
@@ -45,7 +46,19 @@ class PlanningFragment : Fragment() {
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
         val id = Anicantik.getInstance(requireContext()).getId()
         viewModel.getPlans(id).observe(this.viewLifecycleOwner, Observer { listPlan ->
-            planningAdapter.setPlanList(listPlan)
+            if(listPlan!=null){
+                countAmount(listPlan)
+                planningAdapter.setPlanList(listPlan)
+            }
         })
     }
+
+    private fun countAmount(listPlan: List<Outcome>) {
+        var amount = 0
+        listPlan.forEach {
+            amount+=it.amount
+        }
+        binding.tvTotalPlanning.text = "Rp " + amount.toString()
+    }
+
 }
