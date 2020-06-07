@@ -131,7 +131,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/textView9"
+                            android:id="@+id/amount_wallet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"

@@ -17,6 +17,7 @@ class PlanningFragment : Fragment() {
 
     private lateinit var viewModel : PlanningViewModel
     private lateinit var binding : FragmentPlanningBinding
+    private lateinit var planningAdapter: PlanningAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,6 +34,5 @@ class PlanningFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
-
     }
 }
