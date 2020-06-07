@@ -1,13 +1,12 @@
 package com.awrcorp.bitmoney_app.repository
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.awrcorp.bitmoney_app.db.AppDatabase
 import com.awrcorp.bitmoney_app.network.ApiClient
 import com.awrcorp.bitmoney_app.network.AuthResponse
-import com.awrcorp.bitmoney_app.vo.Income
-import com.awrcorp.bitmoney_app.vo.Outcome
 import com.awrcorp.bitmoney_app.vo.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,7 +15,6 @@ import retrofit2.Response
 class AppRepository private constructor(private val context: Context) {
 
     private val api = ApiClient.instance
-    private val db = AppDatabase.DatabaseBuilder.getInstance(context)
 
     companion object {
         private var instance: AppRepository? = null
@@ -67,15 +65,39 @@ class AppRepository private constructor(private val context: Context) {
         return responseCode
     }
 
-    //UserDao
-    fun saveUser(user : User) = db.getUserDao().saveUser(user)
-    fun getUser() : LiveData<User> = db.getUserDao().getUser()
+    fun getUser(userId : Int) : LiveData<User> {
+        val user = MutableLiveData<User>()
+        api.getUser(userId).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val uid = response.body()?.userId
+                if (uid != null) {
+                    user.value = response.body()
+                }
+            }
 
-    //IncomeDao
-    fun saveAllIncomes(income : List<Income>) = db.getIncomeDao().saveAllIncomes(income)
-    fun getIncomes() = db.getIncomeDao().getIncomes()
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+        })
+        return user
+    }
 
-    //OutcomeDao
-    fun saveAllOutcomes(outcome : List<Outcome>) = db.getOutcomeDao().saveAllOutcomes(outcome)
-    fun getOutcomes() : LiveData<List<Outcome>> = db.getOutcomeDao().getOutcomes()
+    fun updateUser(userId : Int, name: String, email: String, password: String, balance : Int, photo : String) : LiveData<String> {
+        val message = MutableLiveData<String>()
+        api.updateUser(userId, name, email, password, balance, photo).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val uid = response.body()?.userId
+                if (uid != null) {
+                    message.value = "Update successful"
+                } else {
+                    message.value = "update failed"
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                message.value = "update failed, check your connection"
+            }
+        })
+        return message
+    }
 }

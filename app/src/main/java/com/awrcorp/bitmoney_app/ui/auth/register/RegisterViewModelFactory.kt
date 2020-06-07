@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.awrcorp.bitmoney_app.injection.Injection
 import com.awrcorp.bitmoney_app.repository.AppRepository
 
+@Suppress("UNCHECKED_CAST")
 class RegisterViewModelFactory private constructor(private val appRepository: AppRepository)
     : ViewModelProvider.NewInstanceFactory(){
 

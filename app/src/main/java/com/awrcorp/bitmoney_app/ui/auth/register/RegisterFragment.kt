@@ -1,21 +1,18 @@
 package com.awrcorp.bitmoney_app.ui.auth.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentRegisterBinding
-import com.awrcorp.bitmoney_app.ui.auth.login.LoginViewModel
-import com.awrcorp.bitmoney_app.ui.auth.login.LoginViewModelFactory
-import com.awrcorp.bitmoney_app.vo.Anicantik
-import kotlinx.android.synthetic.main.fragment_register.*
+import com.awrcorp.bitmoney_app.utils.showMessage
+import com.awrcorp.bitmoney_app.utils.Anicantik
 
 class RegisterFragment : Fragment() {
 
@@ -58,11 +55,13 @@ class RegisterFragment : Fragment() {
         viewModel.register(name, email, password).observe(this.viewLifecycleOwner, Observer { responseCode ->
             if (responseCode != null) {
                 when (responseCode) {
-                    404 -> Toast.makeText(getActivity(), "try another email", Toast.LENGTH_SHORT).show()
-                    408 -> Toast.makeText(getActivity(), "check your connection and try again", Toast.LENGTH_SHORT).show()
+                    404 -> context?.showMessage("try another email")
+                    408 -> context?.showMessage("check your connection and try again")
                     else -> {
-                        Anicantik.loggedUserId = responseCode
-                        Toast.makeText(getActivity(), "userId ${Anicantik.loggedUserId}", Toast.LENGTH_SHORT).show()
+                        Anicantik.getInstance(requireContext()).saveId(responseCode)
+                        val id = Anicantik.getInstance(requireContext()).getId()
+                        context?.showMessage("userId $id")
+//                        showMessage("userId $id")
                         view?.findNavController()?.navigate(R.id.action_registerFragment_to_homeActivity)
                         this.activity?.finish()
                     }
@@ -86,9 +85,5 @@ class RegisterFragment : Fragment() {
             invalid = true
         }
         return invalid
-    }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
