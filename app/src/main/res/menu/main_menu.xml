@@ -10,7 +10,7 @@
         android:title="@string/planning" />
     <item
         android:id="@+id/walletFragment"
-        android:icon="@drawable/ic_account_balance_wallet_black_24dp"
+        android:icon="@drawable/ic_baseline_account_balance_wallet_24"
         android:title="@string/wallet" />
     <item
         android:id="@+id/profileFragment"

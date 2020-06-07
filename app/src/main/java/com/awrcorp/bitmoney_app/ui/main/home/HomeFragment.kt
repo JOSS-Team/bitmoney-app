@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentHomeBinding
+import com.awrcorp.bitmoney_app.ui.main.planning.PlanningViewModel
+import com.awrcorp.bitmoney_app.ui.main.planning.PlanningViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
  */
 class HomeFragment : Fragment() {
 
+    private lateinit var viewModel : PlanningViewModel
     private lateinit var binding : FragmentHomeBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,4 +33,9 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
+
+    }
 }
