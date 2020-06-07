@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.awrcorp.bitmoney_app.network.ApiClient
 import com.awrcorp.bitmoney_app.network.AuthResponse
+import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.vo.Outcome
 import com.awrcorp.bitmoney_app.vo.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -99,5 +101,28 @@ class AppRepository private constructor(private val context: Context) {
             }
         })
         return message
+    }
+
+    fun getPlans(userId: Int) : LiveData<List<Outcome>> {
+        val plans = MutableLiveData<List<Outcome>>()
+        val planList: List<Outcome> = emptyList()
+        api.getOutcomes(userId).enqueue(object : Callback<List<Outcome>> {
+            override fun onResponse(call: Call<List<Outcome>>, response: Response<List<Outcome>>) {
+                val planResponse = response.body()
+                if (planResponse != null){
+                    planResponse.forEach {
+                        if (it.isPlan){
+                            planList.toMutableList().add(it)
+                        }
+                    }
+                    plans.value = planList
+                }
+            }
+
+            override fun onFailure(call: Call<List<Outcome>>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+        })
+        return plans
     }
 }
