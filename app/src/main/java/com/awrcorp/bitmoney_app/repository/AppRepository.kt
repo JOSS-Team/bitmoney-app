@@ -47,8 +47,24 @@ class AppRepository private constructor(private val context: Context) {
         return responseCode
     }
 
-    fun register(name: String, email: String, password: String) {
-        TODO("Not yet implemented")
+    fun register(name: String, email: String, password: String): LiveData<Int> {
+        val responseCode = MutableLiveData<Int>()
+        api.register(name, email, password).enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val userId = response.body()?.userId
+                if (userId != null) {
+                    responseCode.value = response.body()?.userId
+                } else {
+                    //account not found
+                    responseCode.value = 404
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                //network unavailable or request timeout
+                responseCode.value = 408
+            }
+        })
+        return responseCode
     }
 
     //UserDao
