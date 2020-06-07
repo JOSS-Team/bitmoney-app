@@ -1,18 +1,22 @@
 package com.awrcorp.bitmoney_app.ui.auth.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentRegisterBinding
-import kotlinx.android.synthetic.main.fragment_register.*
+import com.awrcorp.bitmoney_app.utils.showMessage
+import com.awrcorp.bitmoney_app.utils.Anicantik
 
-class RegisterFragment : Fragment(), View.OnClickListener{
+class RegisterFragment : Fragment() {
 
+    private lateinit var viewModel: RegisterViewModel
     private lateinit var binding : FragmentRegisterBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,43 +34,56 @@ class RegisterFragment : Fragment(), View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_register.setOnClickListener(this)
-        tv_have_account.setOnClickListener(this)
-    }
+        viewModel = ViewModelProvider(this, RegisterViewModelFactory.getInstance(requireContext()))[RegisterViewModel::class.java]
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.btn_register -> {
-                checkInput()
-//                this.view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
-            }
-            R.id.tv_have_account -> {
-                this.view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
-            }
+        binding.btnRegister.setOnClickListener{
+            register()
+        }
+
+        binding.tvHaveAccount.setOnClickListener{
+            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
-    private fun checkInput() {
-        var ready = true
-        val username = binding.etUsernameRegister.text.toString()
+    private fun register() {
+        val name = binding.etUsernameRegister.text.toString()
         val email = binding.etEmailRegister.text.toString()
         val password = binding.etPasswordRegister.text.toString()
 
-        if (username.isEmpty()) {
-            binding.etUsernameRegister.error = "Username belum diisi"
-            ready = false
+        if(isInvalid(name, email, password)) return
+
+        viewModel.register(name, email, password).observe(this.viewLifecycleOwner, Observer { responseCode ->
+            if (responseCode != null) {
+                when (responseCode) {
+                    404 -> context?.showMessage("try another email")
+                    408 -> context?.showMessage("check your connection and try again")
+                    else -> {
+                        Anicantik.getInstance(requireContext()).saveId(responseCode)
+                        val id = Anicantik.getInstance(requireContext()).getId()
+                        context?.showMessage("userId $id")
+//                        showMessage("userId $id")
+                        view?.findNavController()?.navigate(R.id.action_registerFragment_to_homeActivity)
+                        this.activity?.finish()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun isInvalid(name : String, email : String, password : String) : Boolean{
+        var invalid = false
+        if (name.isEmpty()) {
+            binding.etUsernameRegister.error = "Nama belum diisi"
+            invalid = true
         }
         if (email.isEmpty()) {
             binding.etEmailRegister.error = "Email belum diisi"
-            ready = false
+            invalid = true
         }
         if (password.isEmpty()) {
             binding.etPasswordRegister.error = "Password belum diisi"
-            ready = false
+            invalid = true
         }
-        if (ready) {
-            this.view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
-        }
+        return invalid
     }
-
 }

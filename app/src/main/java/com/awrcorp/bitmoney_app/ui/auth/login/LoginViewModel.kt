@@ -6,5 +6,5 @@ import com.awrcorp.bitmoney_app.repository.AppRepository
 
 class LoginViewModel(private val appRepository: AppRepository): ViewModel() {
 
-    fun login(email: String, password: String): LiveData<Int> = appRepository.login(email, password)
+    fun login(email: String, password: String) = appRepository.login(email, password)
 }

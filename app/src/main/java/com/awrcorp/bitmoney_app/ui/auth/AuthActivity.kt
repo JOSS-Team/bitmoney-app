@@ -1,7 +1,7 @@
 package com.awrcorp.bitmoney_app.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.awrcorp.bitmoney_app.R
 
 class AuthActivity : AppCompatActivity() {

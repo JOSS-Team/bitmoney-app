@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentLoginBinding
+import com.awrcorp.bitmoney_app.utils.showMessage
+import com.awrcorp.bitmoney_app.utils.Anicantik
 
 class LoginFragment : Fragment() {
 
@@ -53,10 +54,12 @@ class LoginFragment : Fragment() {
         viewModel.login(email, password).observe(this.viewLifecycleOwner, Observer { responseCode ->
             if (responseCode != null) {
                 when (responseCode) {
-                    404 -> Toast.makeText(getActivity(), "account not found", Toast.LENGTH_SHORT).show()
-                    408 -> Toast.makeText(getActivity(), "check your connection and try again", Toast.LENGTH_SHORT).show()
+                    404 -> context?.showMessage("account not found")
+                    408 -> context?.showMessage("check your connection and try again")
                     else -> {
-                        Toast.makeText(getActivity(), "userId $responseCode", Toast.LENGTH_SHORT).show()
+                        Anicantik.getInstance(requireContext()).saveId(responseCode)
+                        val id = Anicantik.getInstance(requireContext()).getId()
+                        context?.showMessage("userId $id")
                         view?.findNavController()?.navigate(R.id.action_loginFragment_to_homeActivity)
                         this.activity?.finish()
                     }
@@ -66,15 +69,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun isInvalid(email : String, password : String) : Boolean{
-        var ready = false
+        var invalid = false
         if (email.isEmpty()) {
             binding.etEmailLogin.error = "Email belum diisi"
-            ready = true
+            invalid = true
         }
         if (password.isEmpty()) {
             binding.etPasswordLogin.error = "Password belum diisi"
-            ready = true
+            invalid = true
         }
-        return ready
+        return invalid
     }
 }
