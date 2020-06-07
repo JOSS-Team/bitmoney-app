@@ -16,6 +16,7 @@ import com.awrcorp.bitmoney_app.databinding.FragmentPlanningBinding
 class PlanningFragment : Fragment() {
 
     private lateinit var binding : FragmentPlanningBinding
+    private lateinit var planningAdapter: PlanningAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,4 +30,7 @@ class PlanningFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }
