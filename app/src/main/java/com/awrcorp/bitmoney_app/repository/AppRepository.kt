@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.awrcorp.bitmoney_app.network.ApiClient
 import com.awrcorp.bitmoney_app.network.AuthResponse
 import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.vo.Income
 import com.awrcorp.bitmoney_app.vo.Outcome
 import com.awrcorp.bitmoney_app.vo.User
 import retrofit2.Call
@@ -17,6 +18,7 @@ import retrofit2.Response
 class AppRepository private constructor(private val context: Context) {
 
     private val api = ApiClient.instance
+    val id = Anicantik.getInstance(context).getId()
 
     companion object {
         private var instance: AppRepository? = null
@@ -124,5 +126,42 @@ class AppRepository private constructor(private val context: Context) {
             }
         })
         return plans
+    }
+
+    fun getHistories(userId: Int) : LiveData<List<Outcome>> {
+        val histories = MutableLiveData<List<Outcome>>()
+        var historyList: MutableList<Outcome> = mutableListOf()
+        api.getOutcomes(userId).enqueue(object : Callback<List<Outcome>> {
+            override fun onResponse(call: Call<List<Outcome>>, response: Response<List<Outcome>>) {
+                val historyResponse = response.body()
+                if (historyResponse != null){
+                    historyResponse.forEach {
+                        if (!it.isPlan){
+                            historyList.add(it)
+                        }
+                    }
+                    histories.value = historyList
+                }
+            }
+
+            override fun onFailure(call: Call<List<Outcome>>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+        })
+        return histories
+    }
+
+    fun getIncomes(userId: Int) : LiveData<List<Income>> {
+        val incomes = MutableLiveData<List<Income>>()
+        api.getIncomes(userId).enqueue(object : Callback<List<Income>> {
+            override fun onResponse(call: Call<List<Income>>, response: Response<List<Income>>) {
+                incomes.value = response.body()
+            }
+
+            override fun onFailure(call: Call<List<Income>>, t: Throwable) {
+                Log.e(TAG, t.toString())
+            }
+        })
+        return incomes
     }
 }

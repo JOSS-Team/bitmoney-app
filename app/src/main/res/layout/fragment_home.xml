@@ -58,10 +58,10 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/tv_hi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Hi Stella French"
+                            android:text="Hi"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -103,7 +103,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/textView6"
+                            android:id="@+id/tv_amount_spent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
@@ -131,7 +131,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/amount_wallet"
+                            android:id="@+id/tv_amount_wallet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
@@ -159,9 +159,9 @@
                     app:cardElevation="8dp">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_history"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="20dp" />
+                        android:layout_height="match_parent" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </ScrollView>

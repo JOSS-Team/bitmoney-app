@@ -36,8 +36,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, ProfileViewModelFactory.getInstance(requireContext()))[ProfileViewModel::class.java]
 
-        val id = Anicantik.getInstance(requireContext()).getId()
-        viewModel.getUser(id).observe(this.viewLifecycleOwner, Observer {user ->
+        viewModel.user.observe(this.viewLifecycleOwner, Observer {user ->
             if(user!=null){
                 binding.tvNameProfile.text = user.name
                 binding.tvEmailProfile.text = user.email

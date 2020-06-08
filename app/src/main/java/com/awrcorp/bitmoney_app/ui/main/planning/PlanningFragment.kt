@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentPlanningBinding
-import com.awrcorp.bitmoney_app.utils.Anicantik
 import com.awrcorp.bitmoney_app.vo.Outcome
 
 /**
@@ -44,8 +43,7 @@ class PlanningFragment : Fragment() {
         binding.rvPlan.setHasFixedSize(true)
 
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
-        val id = Anicantik.getInstance(requireContext()).getId()
-        viewModel.getPlans(id).observe(this.viewLifecycleOwner, Observer { listPlan ->
+        viewModel.plans.observe(this.viewLifecycleOwner, Observer { listPlan ->
             if(listPlan!=null){
                 countAmount(listPlan)
                 planningAdapter.setPlanList(listPlan)
