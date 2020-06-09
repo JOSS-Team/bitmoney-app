@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_large"
-                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:layout_marginRight="32dp"
                     android:orientation="horizontal">
 
@@ -65,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:src="@drawable/ic_baseline_account_balance_wallet" />
+                        android:src="@drawable/ic_baseline_edit_24" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                         android:layout_marginLeft="@dimen/margin_large"
                         android:layout_weight="1"
                         android:gravity="start|center_vertical"
-                        android:text="Status Expense"
+                        android:text="Edit Profile"
                         android:textColor="@color/colorButton1"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="@dimen/margin_large"
                     android:orientation="horizontal">
 
                     <Button
