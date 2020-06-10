@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentProfileBinding
 import com.awrcorp.bitmoney_app.utils.Anicantik
@@ -35,6 +36,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, ProfileViewModelFactory.getInstance(requireContext()))[ProfileViewModel::class.java]
+
+        binding.btnLogout.setOnClickListener {
+            Anicantik.getInstance(requireContext()).removeId()
+            view.findNavController().navigate(R.id.action_profileFragment_to_authActivity)
+            this.activity?.finish()
+        }
 
         viewModel.user.observe(this.viewLifecycleOwner, Observer {user ->
             if(user!=null){

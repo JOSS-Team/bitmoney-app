@@ -14,6 +14,7 @@ import com.awrcorp.bitmoney_app.vo.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Field
 
 class AppRepository private constructor(private val context: Context) {
 
@@ -105,6 +106,42 @@ class AppRepository private constructor(private val context: Context) {
         return message
     }
 
+    fun addOutcome(name: String, amount: Int, category: String, date: String, isPlan: Boolean, user: Int) : LiveData<String> {
+        val message = MutableLiveData<String>()
+        api.addOutcome(name, amount, category, date, isPlan, user).enqueue(object : Callback<Outcome>{
+            override fun onResponse(call: Call<Outcome>, response: Response<Outcome>) {
+                val outcomeId = response.body()?.outcomeId
+                if(outcomeId != null){
+                    message.value = "Success"
+                } else
+                    message.value = "failure"
+            }
+
+            override fun onFailure(call: Call<Outcome>, t: Throwable) {
+                message.value = "failure"
+            }
+        })
+        return message
+    }
+
+    fun addPlanning(name: String, amount: Int, category: String, isPlan: Boolean, user: Int) : LiveData<String> {
+        val message = MutableLiveData<String>()
+        api.addPlanning(name, amount, category, isPlan, user).enqueue(object : Callback<Outcome>{
+            override fun onResponse(call: Call<Outcome>, response: Response<Outcome>) {
+                val outcomeId = response.body()?.outcomeId
+                if(outcomeId != null){
+                    message.value = "Success"
+                } else
+                    message.value = "failure"
+            }
+
+            override fun onFailure(call: Call<Outcome>, t: Throwable) {
+                message.value = "failure"
+            }
+        })
+        return message
+    }
+
     fun getPlans(userId: Int) : LiveData<List<Outcome>> {
         val plans = MutableLiveData<List<Outcome>>()
         var planList: MutableList<Outcome> = mutableListOf()
@@ -150,6 +187,26 @@ class AppRepository private constructor(private val context: Context) {
         })
         return histories
     }
+
+//    fun addIncome(name: String, amount: Int, date: String, user: Int) : LiveData<Int> {
+//        val responseCode = MutableLiveData<Int>()
+//        api.addIncome(name, amount, date, user).enqueue(object : Callback<Income> {
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                val userId = response.body()?.userId
+//                if (userId != null) {
+//                    responseCode.value = response.body()?.userId
+//                } else {
+//                    //account not found
+//                    responseCode.value = 404
+//                }
+//            }
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                //network unavailable or request timeout
+//                responseCode.value = 408
+//            }
+//        })
+//        return responseCode
+//    }
 
     fun getIncomes(userId: Int) : LiveData<List<Income>> {
         val incomes = MutableLiveData<List<Income>>()

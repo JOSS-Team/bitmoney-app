@@ -59,9 +59,6 @@ class RegisterFragment : Fragment() {
                     408 -> context?.showMessage("check your connection and try again")
                     else -> {
                         Anicantik.getInstance(requireContext()).saveId(responseCode)
-                        val id = Anicantik.getInstance(requireContext()).getId()
-                        context?.showMessage("userId $id")
-//                        showMessage("userId $id")
                         view?.findNavController()?.navigate(R.id.action_registerFragment_to_homeActivity)
                         this.activity?.finish()
                     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.awrcorp.bitmoney_app.R
@@ -42,6 +43,10 @@ class HomeFragment : Fragment() {
         binding.rvHistory.layoutManager = LinearLayoutManager(context)
         binding.rvHistory.adapter = homeAdapter
         binding.rvHistory.setHasFixedSize(true)
+
+        binding.fabTambah.setOnClickListener {
+            view.findNavController().navigate(R.id.action_homeFragment_to_inputOutcomeFragment)
+        }
 
         viewModel = ViewModelProvider(this, HomeViewModelFactory.getInstance(requireContext()))[HomeViewModel::class.java]
         viewModel.histories.observe(this.viewLifecycleOwner, Observer { listHistory ->

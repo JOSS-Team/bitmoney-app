@@ -52,6 +52,14 @@ interface ApiService {
                    @Field("isPlan") isPlan: Boolean,
                    @Field("user") user: Int) : Call<Outcome>
 
+    @FormUrlEncoded
+    @POST("outcome/")
+    fun addPlanning(@Field("name") name: String,
+                   @Field("amount") amount: Int,
+                   @Field("category") category: String,
+                   @Field("isPlan") isPlan: Boolean,
+                   @Field("user") user: Int) : Call<Outcome>
+
     @DELETE("outcome/{outcomeId}")
     fun deleteOutcome(@Path("ioutomeId") outcomeId : Int) : Call<Unit>
 
