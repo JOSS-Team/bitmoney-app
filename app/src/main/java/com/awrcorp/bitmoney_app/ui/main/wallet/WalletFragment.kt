@@ -41,6 +41,10 @@ class WalletFragment : Fragment() {
         binding.rvIncome.adapter = walletAdapter
         binding.rvIncome.setHasFixedSize(true)
 
+        viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
+            binding.tvBalanceWallet.text = "Rp " + user.balance.toString()
+        })
+
         binding.fabTambah.setOnClickListener {
             view.findNavController().navigate(R.id.action_walletFragment_to_inputWalletFragment2)
         }

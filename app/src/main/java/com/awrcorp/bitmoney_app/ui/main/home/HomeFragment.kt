@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
 
         viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
             binding.tvHi.text = "Hi " + user.name
+            binding.tvAmountWallet.text = "Rp " + user.balance.toString()
         })
     }
 

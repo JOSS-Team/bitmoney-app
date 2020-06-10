@@ -24,8 +24,12 @@ interface ApiService {
                    @Field("name") name: String,
                    @Field("email") email: String,
                    @Field("password") password: String,
-                   @Field("balance") balance: Int,
-                   @Field("photo") photo: String) : Call<User>
+                   @Field("balance") balance: Int) : Call<User>
+
+    @FormUrlEncoded
+    @PUT("user/{userId}")
+    fun updateBalance(@Path("userId") userId : Int,
+                      @Field("balance") balance: Int) : Call<User>
 
     @GET("user/{userId}")
     fun getUser(@Path("userId") userId : Int) : Call<User>

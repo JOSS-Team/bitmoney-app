@@ -32,6 +32,9 @@
             android:id="@+id/action_profileFragment_to_authActivity"
             app:destination="@id/authActivity"
             app:popUpTo="@id/authActivity" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
@@ -77,4 +80,13 @@
         android:name="com.awrcorp.bitmoney_app.ui.auth.AuthActivity"
         android:label="activity_auth"
         tools:layout="@layout/activity_auth" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.awrcorp.bitmoney_app.ui.main.profile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment" />
+    </fragment>
 </navigation>

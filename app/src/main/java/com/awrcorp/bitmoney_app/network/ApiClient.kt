@@ -13,7 +13,7 @@ object ApiClient {
             .build()
 
     val instance: ApiService = Retrofit.Builder()
-            .baseUrl("https://moneybit.herokuapp.com/api/")
+            .baseUrl("http://192.168.1.12:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

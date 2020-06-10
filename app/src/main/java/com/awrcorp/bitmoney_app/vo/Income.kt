@@ -9,5 +9,6 @@ data class Income(
         var incomeId : Int,
         var name : String,
         var amount : Int,
-        var date : String
+        var date : String,
+        var user : Int
 )

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
@@ -16,6 +17,7 @@ import com.awrcorp.bitmoney_app.databinding.FragmentInputBinding
 import com.awrcorp.bitmoney_app.network.ApiClient
 import com.awrcorp.bitmoney_app.repository.AppRepository
 import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.utils.showMessage
 import com.awrcorp.bitmoney_app.vo.Income
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,18 +49,41 @@ class InputWalletFragment : Fragment() {
         binding.etCategory.visibility = View.GONE
 
         binding.btnAdd.setOnClickListener {
-//            PostWallet()
+            addIncome()
         }
     }
 
-    private fun isInvalid(nominal : Int?, name : String, date: String) : Boolean{
+    private fun addIncome(){
+        val name = binding.etName.text.toString()
+        val amount = binding.etNominal.text.toString().toInt()
+        val date = binding.etDate.text.toString()
+        val userId = viewModel.userId
+
+        if(isInvalid(name, amount, date)) return
+
+        viewModel.addIncome(name, amount, date, userId).observe(this.viewLifecycleOwner, Observer {
+
+        })
+
+        viewModel.user.observe(this.viewLifecycleOwner, Observer {user ->
+            if(user!=null){
+                viewModel.updateUser(userId, user.name!!, user.email!!, user.password!!, user.balance + amount).observe(this.viewLifecycleOwner, Observer {
+                    context?.showMessage(it + "anicantik")
+                    view?.findNavController()?.navigate(R.id.action_inputWalletFragment2_to_walletFragment)
+                })
+            }
+        })
+    }
+
+    private fun isInvalid(name: String, amount: Int?, date: String) : Boolean{
         var invalid = false
-        if (nominal == null) {
-            binding.etNominal.error = "Nominal belum diisi"
-            invalid = true
-        }
+
         if (name.isEmpty()) {
             binding.etName.error = "Nama belum diisi"
+            invalid = true
+        }
+        if (amount == null) {
+            binding.etNominal.error = "Nominal belum diisi"
             invalid = true
         }
         if (date.isEmpty()) {
