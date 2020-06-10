@@ -8,8 +8,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/icon_kategori"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
         android:src="@drawable/nama" />
 
     <LinearLayout
@@ -21,30 +22,38 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/kategori_outcome"
+            android:id="@+id/tv_kategori_outcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Kategori"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/nama_outcome"
+            android:id="@+id/tv_nama_outcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama history"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_tanggal_outcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tanggal"
+            android:textColor="@color/colorButton2"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/harga_outcome"
+        android:id="@+id/tv_harga_outcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:text="- Rp 20,000"
         android:textColor="@color/colorButton2"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

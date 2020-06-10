@@ -44,11 +44,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/tv_total_planning"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Rp 496,000"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textDirection="rtl"
                         android:textSize="24sp"

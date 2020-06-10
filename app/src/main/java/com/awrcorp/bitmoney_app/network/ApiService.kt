@@ -24,8 +24,12 @@ interface ApiService {
                    @Field("name") name: String,
                    @Field("email") email: String,
                    @Field("password") password: String,
-                   @Field("balance") balance: Int,
-                   @Field("photo") photo: String) : Call<User>
+                   @Field("balance") balance: Int) : Call<User>
+
+    @FormUrlEncoded
+    @PUT("user/{userId}")
+    fun updateBalance(@Path("userId") userId : Int,
+                      @Field("balance") balance: Int) : Call<User>
 
     @GET("user/{userId}")
     fun getUser(@Path("userId") userId : Int) : Call<User>
@@ -40,7 +44,7 @@ interface ApiService {
     @DELETE("income/{incomeId}")
     fun deleteIncome(@Path("incomeId") incomeId : Int) : Call<Unit>
 
-    @GET("income/{userId}")
+    @GET("incomes/{userId}")
     fun getIncomes(@Path("userId") userId : Int) : Call<List<Income>>
 
     @FormUrlEncoded
@@ -52,9 +56,17 @@ interface ApiService {
                    @Field("isPlan") isPlan: Boolean,
                    @Field("user") user: Int) : Call<Outcome>
 
+    @FormUrlEncoded
+    @POST("outcome/")
+    fun addPlanning(@Field("name") name: String,
+                   @Field("amount") amount: Int,
+                   @Field("category") category: String,
+                   @Field("isPlan") isPlan: Boolean,
+                   @Field("user") user: Int) : Call<Outcome>
+
     @DELETE("outcome/{outcomeId}")
     fun deleteOutcome(@Path("ioutomeId") outcomeId : Int) : Call<Unit>
 
-    @GET("outcome/{userId}")
+    @GET("outcomes/{userId}")
     fun getOutcomes(@Path("userId") userId : Int) : Call<List<Outcome>>
 }

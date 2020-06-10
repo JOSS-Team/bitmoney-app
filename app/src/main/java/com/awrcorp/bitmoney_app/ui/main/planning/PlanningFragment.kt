@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentPlanningBinding
-import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.vo.Outcome
 
 /**
  * A simple [Fragment] subclass.
@@ -42,10 +43,25 @@ class PlanningFragment : Fragment() {
         binding.rvPlan.adapter = planningAdapter
         binding.rvPlan.setHasFixedSize(true)
 
+        binding.fabTambah.setOnClickListener {
+            view.findNavController().navigate(R.id.action_planningFragment_to_inputPlanningFragment2)
+        }
+
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
-        val id = Anicantik.getInstance(requireContext()).getId()
-        viewModel.getPlans(id).observe(this.viewLifecycleOwner, Observer { listPlan ->
-            planningAdapter.setPlanList(listPlan)
+        viewModel.plans.observe(this.viewLifecycleOwner, Observer { listPlan ->
+            if(listPlan!=null){
+                countAmount(listPlan)
+                planningAdapter.setPlanList(listPlan)
+            }
         })
     }
+
+    private fun countAmount(listPlan: List<Outcome>) {
+        var amount = 0
+        listPlan.forEach {
+            amount+=it.amount
+        }
+        binding.tvTotalPlanning.text = "Rp " + amount.toString()
+    }
+
 }
