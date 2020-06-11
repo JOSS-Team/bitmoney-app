@@ -14,30 +14,30 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/kategori_income"
+            android:id="@+id/tv_nama_income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kategori"
+            android:text="Nama income"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/income_come"
+            android:id="@+id/tv_tanggal_income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama history"
+            android:text="Tanggal"
             android:textColor="@android:color/black"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tv_amount_income"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:text="Rp 150,000"
-        android:textAlignment="center"
-        android:textColor="@color/colorButton2"
+        android:textColor="@android:color/black"
         android:textSize="20sp" />
 </LinearLayout>

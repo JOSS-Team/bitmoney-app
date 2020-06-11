@@ -1,4 +1,4 @@
-package com.awrcorp.bitmoney_app.ui.main.planning
+package com.awrcorp.bitmoney_app.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,36 +8,36 @@ import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.vo.Outcome
 import kotlinx.android.synthetic.main.list_outcome.view.*
 
-class PlanningAdapter : RecyclerView.Adapter<PlanningAdapter.ViewHolder>() {
-    private val planList = ArrayList<Outcome>()
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+    private val historyList = ArrayList<Outcome>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_outcome, parent, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = planList.size
+    override fun getItemCount(): Int = historyList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(planList[position])
+        holder.bind(historyList[position])
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(plan: Outcome) {
+        fun bind(history: Outcome) {
             with(itemView) {
-                tv_kategori_outcome.text = plan.category
-                tv_nama_outcome.text = plan.name
-                tv_harga_outcome.text = "Rp " + plan.amount.toString()
-                tv_tanggal_outcome.visibility = View.GONE
+                tv_kategori_outcome.text = history.category
+                tv_nama_outcome.text = history.name
+                tv_tanggal_outcome.text = history.date
+                tv_harga_outcome.text = "Rp " + history.amount.toString()
             }
         }
     }
 
-    fun setPlanList(planLists: List<Outcome>) {
-        if (this.planList.isNotEmpty()) {
-            this.planList.clear()
+    fun setHistoryList(historyLists: List<Outcome>) {
+        if (this.historyList.isNotEmpty()) {
+            this.historyList.clear()
         }
-        this.planList.addAll(planLists)
+        this.historyList.addAll(historyLists)
         notifyDataSetChanged()
     }
 }

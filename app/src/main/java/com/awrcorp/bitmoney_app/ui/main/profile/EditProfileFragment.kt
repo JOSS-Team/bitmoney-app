@@ -10,20 +10,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
-import com.awrcorp.bitmoney_app.databinding.FragmentProfileBinding
-import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.awrcorp.bitmoney_app.databinding.FragmentEditProfileBinding
+import com.awrcorp.bitmoney_app.utils.showMessage
 
-class ProfileFragment : Fragment() {
+class EditProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: FragmentEditProfileBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_profile,
+                R.layout.fragment_edit_profile,
                 container,
                 false
         )
@@ -34,22 +33,26 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, ProfileViewModelFactory.getInstance(requireContext()))[ProfileViewModel::class.java]
 
-        binding.btnLogout.setOnClickListener {
-            Anicantik.getInstance(requireContext()).removeId()
-            view.findNavController().navigate(R.id.action_profileFragment_to_authActivity)
-            this.activity?.finish()
+        binding.btnAdd.setOnClickListener {
+            updateUser()
         }
 
-        binding.editProfile.setOnClickListener {
-            view.findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
-        }
-
-        viewModel.user.observe(this.viewLifecycleOwner, Observer {user ->
-            if(user!=null){
-                binding.tvNameProfile.text = user.name
-                binding.tvEmailProfile.text = user.email
-            }
-        })
     }
 
+    private fun updateUser(){
+        val userId = viewModel.userId
+        val name = binding.editNama.text.toString()
+        val email = binding.editAlamat.text.toString()
+        val password = binding.editpass.text.toString()
+        val balance = viewModel.user.value?.balance
+
+        if (balance != null) {
+            viewModel.updateUser(userId, name, email, password, balance).observe(this.viewLifecycleOwner, Observer {
+                if(it!=null){
+                    context?.showMessage(it)
+                    view?.findNavController()?.navigate(R.id.action_editProfileFragment_to_profileFragment)
+                }
+            })
+        }
+    }
 }

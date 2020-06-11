@@ -11,5 +11,6 @@ data class Outcome(
         var category : String,
         var amount : Int,
         var date : String,
-        var isPlan : Boolean = false
+        var isPlan : Boolean = false,
+        var user : Int
 )
