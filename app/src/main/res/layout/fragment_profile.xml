@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_large"
-                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:layout_marginRight="32dp"
                     android:orientation="horizontal">
 
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="@dimen/margin_large"
                     android:orientation="horizontal">
 
                     <Button
