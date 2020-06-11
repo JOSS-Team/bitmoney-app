@@ -54,6 +54,6 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center"
-        android:src="@drawable/nama" />
+        android:src="@drawable/ic_baseline_delete_8" />
 
 </LinearLayout>

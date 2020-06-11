@@ -1,5 +1,6 @@
 package com.awrcorp.bitmoney_app.ui.main.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentInputBinding
-import com.awrcorp.bitmoney_app.ui.main.wallet.WalletViewModel
-import com.awrcorp.bitmoney_app.ui.main.wallet.WalletViewModelFactory
 import com.awrcorp.bitmoney_app.utils.showMessage
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InputOutcomeFragment : Fragment() {
 
@@ -42,11 +43,17 @@ class InputOutcomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun addOutcome(){
         val name = binding.etName.text.toString()
         val amount = binding.etNominal.text.toString().toInt()
         val category = binding.etCategory.text.toString()
-        val date = binding.etDate.text.toString()
+
+        val pattern = "EEEE, dd MMMM yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
+        val date: String = simpleDateFormat.format(Date())
+
+//        val date = binding.etDate.text.toString()
         val isPlan = false
         val userId = viewModel.userId
 
@@ -81,10 +88,10 @@ class InputOutcomeFragment : Fragment() {
             binding.etNominal.error = "Kategori belum diisi"
             invalid = true
         }
-        if (date.isEmpty()) {
-            binding.etDate.error = "Tanggal belum diisi"
-            invalid = true
-        }
+//        if (date.isEmpty()) {
+//            binding.etDate.error = "Tanggal belum diisi"
+//            invalid = true
+//        }
         return invalid
     }
 }

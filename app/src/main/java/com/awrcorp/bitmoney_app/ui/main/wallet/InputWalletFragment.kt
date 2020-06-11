@@ -22,6 +22,7 @@ import com.awrcorp.bitmoney_app.vo.Income
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 
 class InputWalletFragment : Fragment() {
@@ -56,7 +57,13 @@ class InputWalletFragment : Fragment() {
     private fun addIncome(){
         val name = binding.etName.text.toString()
         val amount = binding.etNominal.text.toString().toInt()
-        val date = binding.etDate.text.toString()
+
+        val pattern = "EEEE, dd MMMM yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
+        val date: String = simpleDateFormat.format(Date())
+
+//        val date = binding.etDate.text.toString()
+
         val userId = viewModel.userId
 
         if(isInvalid(name, amount, date)) return
@@ -85,10 +92,10 @@ class InputWalletFragment : Fragment() {
             binding.etNominal.error = "Nominal belum diisi"
             invalid = true
         }
-        if (date.isEmpty()) {
-            binding.etDate.error = "Tanggal belum diisi"
-            invalid = true
-        }
+//        if (date.isEmpty()) {
+//            binding.etDate.error = "Tanggal belum diisi"
+//            invalid = true
+//        }
         return invalid
     }
 }

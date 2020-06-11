@@ -146,6 +146,18 @@ class AppRepository private constructor(private val context: Context) {
         return message
     }
 
+    fun deleteOutcome(outcomeId: Int) : Unit {
+        api.deleteOutcome(outcomeId).enqueue(object : Callback<Unit>{
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
     fun addPlanning(name: String, amount: Int, category: String, isPlan: Boolean, user: Int) : LiveData<String> {
         val message = MutableLiveData<String>()
         api.addPlanning(name, amount, category, isPlan, user).enqueue(object : Callback<Outcome>{

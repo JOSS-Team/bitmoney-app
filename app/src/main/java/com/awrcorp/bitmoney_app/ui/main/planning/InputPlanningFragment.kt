@@ -35,7 +35,7 @@ class InputPlanningFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
-        binding.etDate.visibility = View.GONE
+//        binding.etDate.visibility = View.GONE
         binding.btnAdd.setOnClickListener {
             addPlanning()
         }

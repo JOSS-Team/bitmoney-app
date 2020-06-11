@@ -1,5 +1,6 @@
 package com.awrcorp.bitmoney_app.ui.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentHomeBinding
+import com.awrcorp.bitmoney_app.utils.showMessage
 import com.awrcorp.bitmoney_app.vo.Outcome
 
 /**
@@ -53,6 +55,12 @@ class HomeFragment : Fragment() {
             if(listHistory!=null){
                 countSpentAmount(listHistory)
                 homeAdapter.setHistoryList(listHistory)
+            }
+        })
+
+        homeAdapter.setOnClickListener(object : HomeAdapter.OnClickListener {
+            override fun onCLick(outcome: Outcome) {
+                context?.showMessage(outcome.outcomeId.toString())
             }
         })
 

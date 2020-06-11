@@ -65,7 +65,7 @@ interface ApiService {
                    @Field("user") user: Int) : Call<Outcome>
 
     @DELETE("outcome/{outcomeId}")
-    fun deleteOutcome(@Path("ioutomeId") outcomeId : Int) : Call<Unit>
+    fun deleteOutcome(@Path("outcomeId") outcomeId : Int) : Call<Unit>
 
     @GET("outcomes/{userId}")
     fun getOutcomes(@Path("userId") userId : Int) : Call<List<Outcome>>
