@@ -76,7 +76,7 @@
             android:drawableLeft="@drawable/date"
             android:drawablePadding="@dimen/padding_small"
             android:hint="@string/date"
-            android:inputType="date"
+            android:inputType="text"
             android:singleLine="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
