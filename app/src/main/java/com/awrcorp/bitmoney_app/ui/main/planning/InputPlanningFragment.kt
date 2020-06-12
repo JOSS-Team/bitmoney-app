@@ -52,7 +52,6 @@ class InputPlanningFragment : Fragment() {
 
         viewModel.addPlanning(name, amount, category, isPlan, userId).observe(this.viewLifecycleOwner, Observer {
             if(it!=null){
-                context?.showMessage(it)
                 view?.findNavController()?.navigate(R.id.action_inputPlanningFragment2_to_planningFragment)
             }
         })

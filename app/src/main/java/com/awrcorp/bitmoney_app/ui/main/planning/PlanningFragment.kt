@@ -1,6 +1,8 @@
 package com.awrcorp.bitmoney_app.ui.main.planning
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentPlanningBinding
+import com.awrcorp.bitmoney_app.network.ApiClient
+import com.awrcorp.bitmoney_app.ui.main.home.HomeAdapter
+import com.awrcorp.bitmoney_app.utils.Anicantik
 import com.awrcorp.bitmoney_app.vo.Outcome
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -48,10 +56,43 @@ class PlanningFragment : Fragment() {
         }
 
         viewModel = ViewModelProvider(this, PlanningViewModelFactory.getInstance(requireContext()))[PlanningViewModel::class.java]
-        viewModel.plans.observe(this.viewLifecycleOwner, Observer { listPlan ->
-            if(listPlan!=null){
-                countAmount(listPlan)
-                planningAdapter.setPlanList(listPlan)
+
+        val id = Anicantik.getInstance(requireContext()).getId()
+        updateList(id)
+
+        planningAdapter.setOnClickListener(object : PlanningAdapter.OnClickListener {
+            override fun onCLick(outcome: Outcome) {
+                ApiClient.instance.deleteOutcome(outcome.outcomeId).enqueue(object : Callback<Unit> {
+                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        updateList(id)
+                    }
+                    override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        t.printStackTrace()
+                    }
+                })
+//                updateList(id)
+            }
+        })
+    }
+
+    private fun updateList(id : Int){
+        var planList: MutableList<Outcome> = mutableListOf()
+        ApiClient.instance.getOutcomes(id).enqueue(object : Callback<List<Outcome>> {
+            override fun onResponse(call: Call<List<Outcome>>, response: Response<List<Outcome>>) {
+                val planResponse = response.body()
+                if (planResponse != null){
+                    planResponse.forEach {
+                        if (it.isPlan && it.user == id){
+                            planList.add(it)
+                        }
+                    }
+                    countAmount(planList)
+                    planningAdapter.setPlanList(planList)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Outcome>>, t: Throwable) {
+                Log.e(ContentValues.TAG, t.toString())
             }
         })
     }

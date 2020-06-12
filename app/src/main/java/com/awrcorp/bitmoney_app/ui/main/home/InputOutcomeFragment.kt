@@ -66,7 +66,6 @@ class InputOutcomeFragment : Fragment() {
         viewModel.user.observe(this.viewLifecycleOwner, Observer {user ->
             if(user!=null){
                 viewModel.updateUser(userId, user.name!!, user.email!!, user.password!!, user.balance - amount).observe(this.viewLifecycleOwner, Observer {
-                    context?.showMessage(it + "anicantik")
                     view?.findNavController()?.navigate(R.id.action_inputOutcomeFragment_to_homeFragment)
                 })
             }

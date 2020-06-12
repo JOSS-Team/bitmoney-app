@@ -37,15 +37,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
             tv_tanggal_outcome.text = historyList[position].date
             tv_harga_outcome.text = "Rp " + historyList[position].amount.toString()
             icon_kategori.setOnClickListener {
-                ApiClient.instance.deleteOutcome(historyList[position].outcomeId).enqueue(object : Callback<Unit> {
-                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                        print("uuuuuuuuuuwwwwwwwwwwwwuuuuuuuuuuuuuuuuu")
-                    }
-
-                    override fun onFailure(call: Call<Unit>, t: Throwable) {
-                        t.printStackTrace()
-                    }
-                })
+                onClickListener?.onCLick(historyList[position])
             }
         }
 
@@ -72,8 +64,6 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         this.historyList.addAll(historyLists)
         notifyDataSetChanged()
     }
-
-
 
     interface OnClickListener {
         fun onCLick(outcome: Outcome)

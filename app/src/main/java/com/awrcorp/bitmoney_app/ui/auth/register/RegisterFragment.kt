@@ -41,7 +41,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.tvHaveAccount.setOnClickListener{
-            view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            view.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 

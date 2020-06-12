@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.awrcorp.bitmoney_app.R
 import com.awrcorp.bitmoney_app.databinding.FragmentProfileBinding
 import com.awrcorp.bitmoney_app.utils.Anicantik
+import com.bumptech.glide.Glide
 
 class ProfileFragment : Fragment() {
 
@@ -48,6 +49,9 @@ class ProfileFragment : Fragment() {
             if(user!=null){
                 binding.tvNameProfile.text = user.name
                 binding.tvEmailProfile.text = user.email
+                Glide.with(this@ProfileFragment)
+                        .load(user.photo)
+                        .into(binding.iconKategori)
             }
         })
     }

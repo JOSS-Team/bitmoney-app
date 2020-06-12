@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">bitmoney-app</string>
+    <string name="app_name">bitmoney</string>
     <string name="preferense_file_key">bitmoney_preferences</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
